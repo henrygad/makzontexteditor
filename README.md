@@ -131,7 +131,7 @@ Created by Henry Orji. If you like this project, feel free to ⭐ it and contrib
 
 ## 📮 Feedback / Issues
 
-Have a suggestion or found a bug? [Open an issue](https://github.com/your-username/makzontexteditor/issues) or submit a PR.
+Have a suggestion or found a bug? [Open an issue](https://github.com/henrygad/makzontexteditor.git) or submit a PR.
 
 ---
 
