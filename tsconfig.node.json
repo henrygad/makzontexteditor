@@ -8,7 +8,6 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "jsx": "react-jsx", // 👈 THIS is the important part
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
