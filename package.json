@@ -1,0 +1,69 @@
+{
+  "name": "makzontexteditor",
+  "version": "1.0.0",
+  "description": "A customizable rich text editor built with the window select API, React, and Tailwind CSS. It provides a simple and intuitive interface for users to create and format text content with ease.",
+  "private": false,
+  "author": "Henry Orji",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md",
+    "mytexteeditor.png"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsup src/index.tsx --dts --format esm,cjs --external react,react-dom --tsconfig tsconfig.build.json",
+    "demo-build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint .",
+    "tailwindcss": "tailwindcss"
+  }, 
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^3.4.3"
+  },
+  "dependencies": {
+    "react-icons": "^5.5.0",
+    "react-router-dom": "^6.23.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.3",
+    "tsup": "^8.4.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.3.1"
+  },
+  "keywords": [
+    "rich-text-editor",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "wysiwyg",
+    "editor",
+    "text-editor",
+    "makzon"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/makzontexteditor"
+  }
+}
