@@ -6,3 +6,8 @@ const App = () => {
 };
 
 export default App;
+
+// git commit -m "release: v1.0.1"
+// npm version patch   # or: minor / major
+// git push && git push --tags
+//npm publish--access public
