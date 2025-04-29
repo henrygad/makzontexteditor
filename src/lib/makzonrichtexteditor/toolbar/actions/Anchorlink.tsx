@@ -62,7 +62,7 @@ const Anchorlink = ({
         };
     }, [isHighlight]);
 
-    return <div id="anchor">
+    return <>
         {targetNode &&
             targetNode.parentElement &&
             targetNode.parentElement.tagName.toLowerCase() === "a" &&
@@ -123,7 +123,7 @@ const Anchorlink = ({
                 />
             </>
         }
-    </div>;
+    </>;
 };
 
 export default Anchorlink;

@@ -21,7 +21,7 @@ const Emojis = ({
         id="emji"
         fieldName={currentEmoji}        
         children={
-            <div className="grid grid-cols-4 gap-2 min-w-[140px] p-2">
+            <>
                 {
                     arrOfEmojis &&
                         arrOfEmojis.length ?
@@ -36,7 +36,7 @@ const Emojis = ({
                         ) :
                         null
                 }
-            </div>
+            </>
         }
     />;
 };

@@ -15,7 +15,9 @@ const pasteToClipBoard = (
     const clipBoard = e.clipboardData;
     if (clipBoard) {
         const paste = clipBoard.getData("text/html") || clipBoard.getData("text/plain");
-        const body = cleanAndConvertInputs(paste);
+        const body = document.createElement("span");
+        body.innerHTML =  cleanAndConvertInputs(paste);
+        body.className = "bolck child-span";
         insertNodeToRange(body, selection, range);
         clipBoard.clearData();
         handleGlobalChangesOnInputArea();   

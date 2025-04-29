@@ -1,5 +1,5 @@
 import { resetSelection } from "../commands/cmd.utils";
-import getSelection from "../utils/getSelection";
+import getSelection from "./getSelection";
 
 const wantedHtmlTag: string[] = ["span", "ul", "ol", "li", "a", "code", "video", "img", "br"];
 
@@ -10,7 +10,7 @@ const deleteUnwantedHtml = () => {
     if (node && node.parentElement) {        
         if (!wantedHtmlTag.includes(node.nodeName.toLowerCase())) {
             const span_ele = document.createElement("span");  
-            span_ele.innerHTML = node.textContent || "<br>";            
+            span_ele.innerHTML = node.textContent || "<br>";              
             node.parentElement.replaceChild(span_ele, node);
             resetSelection(span_ele, selection, range);
         }

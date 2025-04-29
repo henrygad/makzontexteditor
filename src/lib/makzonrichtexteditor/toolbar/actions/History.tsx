@@ -9,14 +9,14 @@ type Props = {
 
 const History = ({ inputRef, displayHistory }: Props) => {
 
-    return <div id="history" className='flex flex-wrap items-center gap-4'>
+    return <>
         <button className="block cursor-pointer" onClick={() =>displayHistory("undo",  inputRef)}>
             <FaUndo size={14} />
         </button>
         <button className="block cursor-pointer" onClick={() => displayHistory("redo", inputRef)}>
             <FaRedo size={14} />
         </button>
-    </div>;
+    </>;
 };
 
 export default History;

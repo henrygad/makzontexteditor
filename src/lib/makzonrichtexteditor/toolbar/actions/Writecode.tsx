@@ -10,12 +10,12 @@ const Writecode = ({
     handleGlobalChangesOnInputArea();
   };
 
-  return <div id="embed-code">
+  return <>
     <button className="text-base p-1"
       onClick={() => handleInsertCode()}>
       {"{ }"}
     </button>
-  </div>;
+  </>;
 };
 
 export default Writecode;

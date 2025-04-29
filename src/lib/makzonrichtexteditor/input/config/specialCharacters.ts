@@ -1,5 +1,5 @@
-import { insertNodeToRange, resetSelection } from "../commands/cmd.utils";
-import getSelection from "../utils/getSelection";
+import { insertNodeToRange, resetSelection } from "../../commands/cmd.utils";
+import getSelection from "../../utils/getSelection";
 
 /* func that handle when a special characters (@, #) is inputed */
 const inputSpecialCharacters = (

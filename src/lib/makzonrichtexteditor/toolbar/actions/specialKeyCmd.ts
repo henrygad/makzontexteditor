@@ -1,6 +1,6 @@
 import inlineCmd from "../../commands/inline.cmd";
 import { getSelectionProps } from "../../type";
-import { displayHistory } from "../../utils/toolbar.utils";
+import { displayHistory } from "../../utils/history";
 
 const specialKeyCmd = (
     e: KeyboardEvent,

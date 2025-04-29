@@ -1,22 +1,20 @@
 import { useEffect, useRef } from "react";
 import Toolbar from "./toolbar/App";
 import Input from "./input/Input";
-import displayPlaceholder from "./configs/dsplayPlaceholder";
-import { addHistory } from "./utils/toolbar.utils";
+import displayPlaceholder from "./input/config/displayPlaceholder";
+import { addHistory } from "./utils/history";
 import { editorProps } from "./type";
 import { bgColors, colors, emojis, family, headings, sizes } from "./assests/defaultData";
-import focusCaretOnInput from "./utils/focusCaretOnInput";
 
 const App = ({
-    editorRef,
+    inputRef,
     wrapperClassName,
     toolBarClassName,
     inputClassName,
-    placeholderValue,
-    addValue,
+    placeholder,
+    setContext,
     setGetValue,
-    autoFocus = true,
-    onFocus = () => null,
+    autoFocus,
     useToolBar,
     arrOfEmojis = emojis,
     arrOfFontColors = colors,
@@ -25,50 +23,48 @@ const App = ({
     arrOfFontSizes = sizes,
     arrOfFontFamily = family,
     handleLocalFile,
-    handleGalaryFile,
-    onFileAdd,
+    handleGalary,
+    onAddFile,
 }: editorProps) => {
-    const textEditorRef = useRef<HTMLDivElement>(null);
+    const textEditorAreaRef = useRef<HTMLDivElement>(null);
     let clearHistorTimeOut: number;
 
-    /* add to history func */
+    // Add to history func
     const handleAddToHistories = () => {
         clearTimeout(clearHistorTimeOut);
+
         clearHistorTimeOut = setTimeout(() => {
-            const element = editorRef.current?.innerHTML || "";
-            addHistory(element); // add history
-        }, 400) as unknown as number;
+            if (!inputRef.current) return clearTimeout(clearHistorTimeOut);
+            const element = inputRef.current.innerHTML;
+            addHistory(element);
+        }, 400);
     };
 
-    /* func that listen for global changes */
+    // Func that listen for changes on input and update other func
     const handleGlobalChangesOnInputArea = () => {
-        displayPlaceholder(editorRef); // evaluate initial input value condition to display placeholder    
-        handleAddToHistories(); // func that add continues history in every 400 min sec
+        displayPlaceholder(inputRef);
+        handleAddToHistories();
+
+        if (!inputRef.current) return;
+
         setGetValue({
-            _html: editorRef.current?.innerHTML || "",
-            text: editorRef.current?.textContent || ""
+            _html: inputRef.current.innerHTML,
+            text: inputRef.current.textContent!
         });
     };
 
-    useEffect(() => {
-        if (autoFocus) {
-            const clear = setTimeout(() => {
-                focusCaretOnInput(editorRef);  // focus caret on initail load                     
-                displayPlaceholder(editorRef);
-                handleAddToHistories(); // call func that add continues history in every 400 min sec initail load
-                clearTimeout(clear);
-            }, 100);
-        }
-    }, []);
+    useEffect(() => { 
+        handleGlobalChangesOnInputArea();
+    }, [inputRef]);
 
     return <div
-        id={`emekus_text_editor_${Date.now()}`}
-        ref={textEditorRef}
+        id={`makzon_text_editor_${Date.now() + "_" + Math.random()}`}
+        ref={textEditorAreaRef}
         className={wrapperClassName}
     >
         {useToolBar ?
             <Toolbar
-                inputRef={editorRef}
+                inputRef={inputRef}
                 toolBarClassName={toolBarClassName}
                 useToolBar={useToolBar}
                 arrOfEmojis={arrOfEmojis}
@@ -77,23 +73,23 @@ const App = ({
                 arrOfHeadings={arrOfHeadings}
                 arrOfFontSizes={arrOfFontSizes}
                 arrOfFontFamily={arrOfFontFamily}
-                textEditorRef={textEditorRef}
-                handleGalaryFile={handleGalaryFile}
-                onFileAdd={onFileAdd}
+                textEditorAreaRef={textEditorAreaRef}
+                handleGalary={handleGalary}
+                onAddFile={onAddFile}
                 handleLocalFile={handleLocalFile}
                 handleGlobalChangesOnInputArea={handleGlobalChangesOnInputArea}
             /> :
             null
         }
         <Input
-            addValue={addValue}
+            setContext={setContext}
             inputClassName={inputClassName}
-            placeholderValue={placeholderValue}
-            inputRef={editorRef}
+            placeholder={placeholder}
+            inputRef={inputRef}
             handleGlobalChangesOnInputArea={handleGlobalChangesOnInputArea}
-            onFocus={onFocus}
+            autoFocus={autoFocus}
         />
     </div>;
 };
 
-export default App ;
+export default App;

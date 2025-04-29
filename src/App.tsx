@@ -1,22 +1,31 @@
 
 import { useRef, useState } from "react";
-import Makzontexteditor from  "./lib/index";
+import Makzontexteditor, {deleteAll} from  "./lib/index";
 import { getValue } from "./lib/makzonrichtexteditor/type";
 import { Route, Routes } from "react-router-dom";
+import useGetLocalFiles from "./hooks/useGetLocalFiles";
 
 const App = () => {
   const editorRef = useRef(null);
   const [getContext, setGetContext] = useState<getValue>();
 
+  const {loading, getLocalFiles} = useGetLocalFiles();
+
+  const deleteAllContent = () => {
+    if (editorRef.current) {
+      deleteAll(editorRef.current);
+    }
+   };
+
   return <Routes>
     <Route path="/" element={
-      <div className="container">
+      <div className="container flex justify-center items-center min-h-screen w-full">
         <Makzontexteditor
-          editorRef={editorRef}
+          inputRef={editorRef}
           wrapperClassName="h-full w-full"
           toolBarClassName="w-full border p-4"
           inputClassName="w-full min-h-[480px] max-h-[480px] p-4 border"
-          placeholderValue="Start writing..."
+          placeholder="Start writing..."
           useToolBar={{
             useInline: {
               heading: true,
@@ -38,16 +47,25 @@ const App = () => {
             useHistor: true,
           }}
           autoFocus={true}
-          addValue={{
-            createNew: true,
-            data: "",
+          setContext={{
+            new: true,            
+            context: "<div>Hi there, <h1>How are you?</h1></div> <div>It being a while. <label>Yes oh</label> <div>Help me</div> </div>",            
           }}
-          setGetValue={(value) => {
-            console.log(value);
+          setGetValue={setGetContext}
+          handleLocalFile={async (FileList) => {
+            const files = await getLocalFiles(FileList);         
+            if (files) {              
+              return files[0].url;
+            }
+
+            return "";
           }}
-        /*  handleLocalFile={handleLocalFile}
-         handleGalaryFile={handleGalaryFile}
-         onFileAdd={uploadFile} */
+          handleGalary={async () => {
+            return "";
+          }}
+          onAddFile={async (blobValue, stringValue) => {           
+            return stringValue;
+         }}
         />
       </div>
     } />

@@ -12,9 +12,7 @@ const Textlisting = ({
         handleGlobalChangesOnInputArea();
     };
 
-    return <div
-        id='text-listings'
-        className='flex items-center gap-4'>
+    return <>
         <button
             className="block cursor-pointer"
             onClick={() => handleTextListing("unorderlist", [])}>
@@ -25,7 +23,7 @@ const Textlisting = ({
             onClick={() => handleTextListing("orderlist", [])}>
             <GrOrderedList size={22} />
         </button>
-    </div>;
+    </>;
 };
 
 export default Textlisting;

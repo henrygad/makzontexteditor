@@ -13,8 +13,8 @@ const Video = ({
     getNodesWithinTextEditor,
     handleGlobalChangesOnInputArea,
     handleLocalFile = async () => "",
-    handleGalaryFile = async () => "",
-    onFileAdd = async () => "",
+    handleGalary = async () => "",
+    onAddFile = async () => "",
 }: mediaProps) => {
     const navigate = useNavigate();
     const grapSelectionRef = useRef<getSelectionProps>({
@@ -24,7 +24,7 @@ const Video = ({
         textNode: undefined,
     });
 
-    const [blob, setBlob] = useState<Blob | string>("");
+    const [blob, setBlob] = useState<Blob | null>(null);
     const [url, setUrl] = useState<string | ArrayBuffer>("");
     const [link, setLink] = useState("");
     const [width, setWidth] = useState(100);
@@ -37,7 +37,7 @@ const Video = ({
         navigate(-1);
     };
 
-    return <div id='add-video'>
+    return <>
         <button
             className='block cursor-pointer'
             onClick={() => {
@@ -62,7 +62,7 @@ const Video = ({
                         </div>
                     </header>
                     <main className="space-y-6">
-                        {/* add video */}
+                        {/* Selection video  options*/}
                         <div className="w-full space-y-3">
                             {/* by tying video link */}
                             <input
@@ -87,9 +87,9 @@ const Video = ({
                                     className=""
                                     handleGetFile={async (e) => {
                                         try {
-                                            if (!e) throw new Error("file was not choose");
-                                            setBlob(e[0]);
+                                            if (!e) throw new Error("file not choose");
                                             const url = await handleLocalFile(e);
+                                            setBlob(e[0]);
                                             setUrl(url);
                                         } catch (error) {
                                             console.error(error);
@@ -102,10 +102,9 @@ const Video = ({
                                         className="block text-white bg-orange-500 p-3 rounded-full shadow-sm cursor-pointer"
                                         onClick={async () => {
                                             try {
-                                                const videoUrlFromGalary = await handleGalaryFile();
-                                                setUrl(videoUrlFromGalary);
-                                                setBlob(videoUrlFromGalary);
-                                                setLink("");
+                                                const imageUrlFromGalary = await handleGalary();
+                                                setUrl(imageUrlFromGalary);
+                                                setBlob(null);
                                             } catch (error) {
                                                 console.error(error);
                                             }
@@ -155,7 +154,7 @@ const Video = ({
                                 useCancle={true}
                                 className="min-w-[280px] h-[240px] rounded-md border"
                             />
-                        </div>
+                        </div>                    
                     </main>
                     <footer className="my-6">
                         <Button
@@ -163,11 +162,12 @@ const Video = ({
                             className="w-full bg-green-500 rounded-md text-white"
                             onClick={async() => {
                                 try {
-                                    const getUrl = await onFileAdd(blob);
-                                    if (!getUrl.trim()) throw new Error("Image fail to upload");
-                                    const style = `inline,w-[${width + "px"}],h-[${height + "px"}]`.split(",");                                    
-                                    handleInsertVideo(getUrl, style);
-                                    setBlob(getUrl);
+                                    const getNewUrl = await onAddFile(blob, url);
+                                    const style = `inline,w-[${width + "px"}],h-[${height + "px"}]`.split(",");
+                                    const formatUrl = getNewUrl;;
+                                    setUrl(getNewUrl);
+                                    setBlob(null);
+                                    handleInsertVideo(formatUrl as string, style);                                    
                                 } catch (error) {
                                     console.error(error);
                                 }
@@ -178,7 +178,7 @@ const Video = ({
                 </div>
             }
         />
-    </div>;
+    </>;
 };
 
 export default Video;

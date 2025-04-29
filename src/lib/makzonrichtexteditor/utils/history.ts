@@ -1,8 +1,7 @@
 import { RefObject } from "react";
-import displayPlaceholder from "../configs/dsplayPlaceholder";
-import addInitialSpans from "../configs/addInitialSpans";
+import displayPlaceholder from "../input/config/displayPlaceholder";
 import { historyProps } from "../type";
-import focusCaretOnInput from "./focusCaretOnInput";
+import focusOnInput from "./focusOnInput";
 
 
 class History implements historyProps {
@@ -29,20 +28,8 @@ class History implements historyProps {
             inputRef.current.innerHTML = this.history[this.historyIndex];
         }
         displayPlaceholder(inputRef);
-        focusCaretOnInput(inputRef);
+        focusOnInput(inputRef, 0);
     };
 }
 
 export const { displayHistory, addHistory } = new History();
-
-export const deleteAll = (inputRef: RefObject<HTMLDivElement | null>) => {
-    if (inputRef && inputRef.current) {
-        const firstSpan_ele = inputRef.current.firstElementChild;
-        if (firstSpan_ele) {
-            inputRef.current.innerHTML = "";
-            addInitialSpans(inputRef);
-            displayPlaceholder(inputRef);
-            addHistory(inputRef.current.innerHTML); // add history
-        }
-    }
-};

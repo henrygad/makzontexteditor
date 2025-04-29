@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import getSelection from "../utils/getSelection";
 import { getSelectionProps, toolbarProps } from "../type";
-import Deleteall from "./actionbuttons/Deleteall";
-import { deleteAll, displayHistory } from "../utils/toolbar.utils";
-import History from "./actionbuttons/History";
-import Alignment from "./actionbuttons/Alignment";
-import Textformat from "./actionbuttons/Textformat";
-import Emojis from "./actionbuttons/Emojis";
-import Textlisting from "./actionbuttons/Textlisting";
-import Anchorlink from "./actionbuttons/Anchorlink";
-import Writecode from "./actionbuttons/Writecode";
-import Embed from "./actionbuttons/Embed";
-import Image from "./actionbuttons/Image";
-import Video from "./actionbuttons/Video";
-import specialKeyCmd from "./actionbuttons/specialKeyCmd";
-import pasteToClipBoard from "./actionbuttons/pasteToClipBoard";
+import Deleteall from "./actions/Deleteall";
+import { displayHistory } from "../utils/history";
+import History from "./actions/History";
+import Alignment from "./actions/Alignment";
+import Textformat from "./actions/Textformat";
+import Emojis from "./actions/Emojis";
+import Textlisting from "./actions/Textlisting";
+import Anchorlink from "./actions/Anchorlink";
+import Writecode from "./actions/Writecode";
+import Embed from "./actions/Embed";
+import Image from "./actions/Image";
+import Video from "./actions/Video";
+import specialKeyCmd from "./actions/specialKeyCmd";
+import pasteToClipBoard from "./actions/pasteToClipBoard";
+import deleteAll from "../utils/deleteAll";
 
 const App = ({
     toolBarClassName,
@@ -26,9 +27,9 @@ const App = ({
     arrOfHeadings,
     arrOfFontSizes,
     arrOfFontFamily,
-    textEditorRef,
-    handleGalaryFile,
-    onFileAdd,
+    textEditorAreaRef,
+    handleGalary,
+    onAddFile,
     handleLocalFile,
     handleGlobalChangesOnInputArea,
 }: toolbarProps) => {
@@ -37,7 +38,7 @@ const App = ({
     /* prevent selecting node outside it own texteditor and contentEditbale input*/
     const getNodesWithinTextEditor = (): getSelectionProps => {
         const selections = getSelection();
-        if ((textEditorRef.current && textEditorRef.current.contains(selections.node as Node)) &&
+        if ((textEditorAreaRef.current && textEditorAreaRef.current.contains(selections.node as Node)) &&
             inputRef.current && inputRef.current.contains(selections.node as Node)) {
             return { ...selections };
         } else {
@@ -69,7 +70,7 @@ const App = ({
         };
     }, []);
 
-    return <div className={`flex flex-wrap items-center gap-4 font-text ${toolBarClassName}`}>
+    return <div className={`relative flex flex-wrap items-center gap-x-5 gap-y-3 font-text ${toolBarClassName}`}>
         <Textformat
             useToolBar={useToolBar}
             arrOfFontColors={arrOfFontColors}
@@ -124,15 +125,15 @@ const App = ({
                         getNodesWithinTextEditor={getNodesWithinTextEditor}
                     />
                     <Image
-                        handleGalaryFile={handleGalaryFile}
-                        onFileAdd={onFileAdd}
+                        handleGalary={handleGalary}
+                        onAddFile={onAddFile}
                         handleLocalFile={handleLocalFile}
                         handleGlobalChangesOnInputArea={handleGlobalChangesOnInputArea}
                         getNodesWithinTextEditor={getNodesWithinTextEditor}
                     />
                     <Video
-                        handleGalaryFile={handleGalaryFile}
-                        onFileAdd={onFileAdd}
+                        handleGalary={handleGalary}
+                        onAddFile={onAddFile}
                         handleLocalFile={handleLocalFile}
                         handleGlobalChangesOnInputArea={handleGlobalChangesOnInputArea}
                         getNodesWithinTextEditor={getNodesWithinTextEditor}

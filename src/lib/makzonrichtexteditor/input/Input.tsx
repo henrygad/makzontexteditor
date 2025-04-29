@@ -1,54 +1,50 @@
-import stopDeleting from "../configs/stopDeleting";
 import { inputProps } from "../type";
-import inputSpecialCharacters from "../configs/inputSpecialCharacters";
-import cleanAndConvertInputs from "../utils/cleanAndConvertInputs";
-import deleteUnwantedHtml from "../configs/deleteUnwantedHtml";
+import inputSpecialCharacters from "./config/specialCharacters";
+import deleteUnwantedHtml from "../utils/deleteUnwantedEle";
+import { useEffect } from "react";
+import prepareInput from "../utils/prepareInput";
+import stopAllOutDeleteInInput from "../utils/stopAllOutDeleteInInput";
 
 const Input = ({
-    placeholderValue = "Start writing...",
+    placeholder = "Start writing...",
     inputClassName,
     inputRef,
-    addValue = { createNew: true, data: "" },
+    setContext,
     handleGlobalChangesOnInputArea,
-    onFocus = () => null
+    autoFocus = true
 }: inputProps) => {
 
     const handleOnInput = () => {
+        // handle event on input into contenteditable div
+        handleGlobalChangesOnInputArea();
         deleteUnwantedHtml();
-        handleGlobalChangesOnInputArea(); // func that listen for global changes on the inputs             
-    };
-
-    const handleOnKeyUp = (e: React.KeyboardEvent) => {
-        stopDeleting(e, inputRef); // func to stop deleting inputs if nothing left to clear               
     };
 
     const handleOnkeyDown = (e: React.KeyboardEvent) => {
-        inputSpecialCharacters(e, handleGlobalChangesOnInputArea); // func that handle special characters (@, #) when inputed
-        stopDeleting(e, inputRef); // func to stop deleting inputs if nothing left to clear               
+        // handle on key down events
+        inputSpecialCharacters(e, handleGlobalChangesOnInputArea);
+        stopAllOutDeleteInInput(e, inputRef, handleGlobalChangesOnInputArea);
     };
 
+    useEffect(() => {
+        // Prepare initail spans going into input on load
+        prepareInput(inputRef, setContext, autoFocus);
+    }, [inputRef, setContext]);
 
-    return <div className={inputClassName}>
-        <span className="place-holder text-base first-letter:capitalize opacity-45 absolute">
-            {placeholderValue}
-        </span>
-        <div
-            contentEditable
-            ref={inputRef}
-            onInput={handleOnInput}
-            onKeyUp={handleOnKeyUp}
-            onKeyDown={handleOnkeyDown}
-            className="h-full w-full min-w-full min-h-full max-w-full max-h-full outline-0"
-            dangerouslySetInnerHTML={{
-                __html:
-                    addValue.createNew ?
-                        "<span class='block new'><br></span>" :
-                        `<span class='block old'>${cleanAndConvertInputs(addValue.data).innerHTML}</span>`
-            }}
-            onFocus={() => onFocus()}
-        >
+    return (
+        <div className={inputClassName}>
+            <span className="place-holder text-base first-letter:capitalize opacity-45 absolute">
+                {placeholder}
+            </span>
+            <div
+                contentEditable
+                ref={inputRef}
+                onInput={handleOnInput}
+                onKeyDown={handleOnkeyDown}
+                className="h-full w-full min-w-full min-h-full max-w-full max-h-full outline-0"
+            ></div>
         </div>
-    </div>;
+    );
 };
 
 export default Input;

@@ -20,7 +20,7 @@ const Textformat = ({
         handleGlobalChangesOnInputArea();
     };
 
-    return <div className="flex flex-wrap gap-4 font-base">
+    return <>
         {
             typeof useToolBar === "object" &&
                 useToolBar.useInline.heading ?
@@ -28,12 +28,12 @@ const Textformat = ({
                 id="heading"
                 fieldName="Heading"
                 children={
-                    <div className="w-full min-w-[100px] p-2 space-y-2 border" >
+                    <>
                         {
                             arrOfHeadings &&
                                 arrOfHeadings.length ?
                                 arrOfHeadings.map(item =>
-                                    <button
+                                    <button                                        
                                         className="block text-sm"
                                         key={item.name}
                                         onClick={() => handleTextFormat("heading", item.style)}>
@@ -42,7 +42,7 @@ const Textformat = ({
                                 ) :
                                 null
                         }
-                    </div>
+                    </>
                 }
             /> :
             null
@@ -53,8 +53,7 @@ const Textformat = ({
                 id="font"
                 fieldName="Font"
                 children={
-                    <div
-                        className="w-full min-w-[100px] p-4 space-y-2 border" >
+                    <>
                         {
                             arrOfFontFamily &&
                                 arrOfFontFamily.length ?
@@ -68,7 +67,7 @@ const Textformat = ({
                                 ) :
                                 null
                         }
-                    </div>
+                    </>
                 }
             /> :
             null
@@ -79,7 +78,7 @@ const Textformat = ({
                 id="size"
                 fieldName="Size"
                 children={
-                    <div className="w-full min-w-[60px] p-4 space-y-2 border" >
+                    <>
                         {
                             arrOfFontSizes &&
                                 arrOfFontSizes.length ?
@@ -93,14 +92,14 @@ const Textformat = ({
                                 ) :
                                 null
                         }
-                    </div>
+                    </>
                 }
             /> :
             null
         }
         {typeof useToolBar === "object" &&
             useToolBar.useInline.bold ?
-            <div id="bold">
+            <>
                 {targetNode &&
                     targetNode.parentElement &&
                     targetNode.parentElement.className.includes("font-bold") &&
@@ -116,12 +115,12 @@ const Textformat = ({
                         B
                     </button>
                 }
-            </div> :
+            </> :
             null
         }
         {typeof useToolBar === "object" &&
             useToolBar.useInline.italic ?
-            <div id="italic">
+            <>
                 {targetNode &&
                     targetNode.parentElement &&
                     targetNode.parentElement.className.split(" ").find(className => className === "italic") ?
@@ -137,12 +136,12 @@ const Textformat = ({
                     </button>
                 }
 
-            </div> :
+            </> :
             null
         }
         {typeof useToolBar === "object" &&
             useToolBar.useInline.underline ?
-            <div id="underline">
+            <>
                 {targetNode &&
                     targetNode.parentElement &&
                     targetNode.parentElement.className.split(" ").find(className => className === "underline") ?
@@ -155,7 +154,7 @@ const Textformat = ({
                         U
                     </button>
                 }
-            </div> :
+            </> :
             null
         }
         {typeof useToolBar === "object" &&
@@ -164,12 +163,12 @@ const Textformat = ({
                 id="text-transform"
                 fieldName="Aa"
                 children={
-                    <div className="w-full text-[.9rem] min-w-[100px] p-4 space-y-2 border rounded-md">
-                        <button id="normal" onClick={() => handleTextFormat("normal-case", ["normal-case"])}>Normal</button>
-                        <button id="capitalize" onClick={() => handleTextFormat("capitalize", ["capitalize"])}>Capitalize</button>
-                        <button id="lowercase" onClick={() => handleTextFormat("lowercase", ["lowercase"])}>LowerCase</button>
-                        <button id="uppercase" onClick={() => handleTextFormat("uppercase", ["uppercase"])}>UpCase</button>
-                    </div>
+                    <>
+                        <button className="text-sm" id="normal" onClick={() => handleTextFormat("normal-case", ["normal-case"])}>Normal</button>
+                        <button className="text-sm" id="capitalize" onClick={() => handleTextFormat("capitalize", ["capitalize"])}>Capitalize</button>
+                        <button className="text-sm" id="lowercase" onClick={() => handleTextFormat("lowercase", ["lowercase"])}>LowerCase</button>
+                        <button className="text-sm" id="uppercase" onClick={() => handleTextFormat("uppercase", ["uppercase"])}>UpCase</button>
+                    </>
                 }
             /> :
             null
@@ -180,7 +179,7 @@ const Textformat = ({
                 id="color"
                 fieldName={<CgColorPicker size={20} />}
                 children={
-                    <div className="grid grid-cols-3 gap-2 min-w-[160px] p-4 border" >
+                    <>
                         {arrOfFontColors &&
                             arrOfFontColors.length ?
                             arrOfFontColors.map(style =>
@@ -192,7 +191,7 @@ const Textformat = ({
                             ) :
                             null
                         }
-                    </div>
+                    </>
                 }
             /> :
             null
@@ -203,7 +202,7 @@ const Textformat = ({
                 id="backgroundcolor"
                 fieldName={<CgColorBucket size={20} />}
                 children={
-                    <div className="grid grid-cols-3 gap-2 min-w-[160px] p-4 border" >
+                    <>
                         {arrOfBgColors &&
                             arrOfBgColors.length ?
                             arrOfBgColors.map(style =>
@@ -214,12 +213,12 @@ const Textformat = ({
                             ) :
                             null
                         }
-                    </div>
+                    </>
                 }
             /> :
             null
         }
-    </div>;
+    </>;
 };
 
 export default Textformat;

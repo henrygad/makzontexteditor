@@ -6,11 +6,11 @@ type Props = {
 
 const Deleteall = ({deleteAll}: Props) => {
     
-  return <div id='detele-all-inputs-from-inputarea' className="flex items-center">
+  return <>
     <button className="block cursor-pointer" onClick={deleteAll} >
       <RiDeleteBin5Line size={19} />
     </button>
-  </div>;
+  </>;
 };
 
 export default Deleteall;

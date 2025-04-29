@@ -27,7 +27,7 @@ const Embed = ({
         navigate(-1);
     };
     
-    return <div id='embedCode' >
+    return <>
         <button className='text-base cursor-pointer' onClick={() => {
             navigate("#embed-content");
             grapSelectionRef.current = getNodesWithinTextEditor();
@@ -67,7 +67,7 @@ const Embed = ({
                 </form>
             }
         />
-    </div>;
+    </>;
 };
 
 export default Embed;

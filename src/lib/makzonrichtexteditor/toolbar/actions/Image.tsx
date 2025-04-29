@@ -13,8 +13,8 @@ const Image = ({
     getNodesWithinTextEditor,
     handleGlobalChangesOnInputArea,
     handleLocalFile = async () => "",
-    handleGalaryFile = async () => "",
-    onFileAdd = async () => "",
+    handleGalary= async () => "",
+    onAddFile = async () => "",
 }: mediaProps) => {
     const navigate = useNavigate();
     const grapSelectionRef = useRef<getSelectionProps>({
@@ -24,13 +24,13 @@ const Image = ({
         textNode: undefined,
     });
 
-    const [blob, setBlob] = useState<Blob | string>("");
+    const [blob, setBlob] = useState<Blob | null>(null);
     const [url, setUrl] = useState<string | ArrayBuffer>("");
     const [link, setLink] = useState("");
     const [alt, setAlt] = useState("");
     const [width, setWidth] = useState(100);
     const [height, setHeight] = useState(100);
-    const [position, setPosition] = useState("contain");
+    const [position, setPosition] = useState("object-none");
 
     const handleInserImage = (url: string, style: string[]) => {
         if (!url) return;
@@ -39,8 +39,9 @@ const Image = ({
         navigate(-1);
     };
 
+
     return (
-        <div id="add-image">
+        <>
             <button
                 className="block cursor-pointer"
                 onClick={() => {
@@ -66,7 +67,7 @@ const Image = ({
                             </div>
                         </header>
                         <main className="space-y-6">
-                            {/* add image */}
+                            {/* selection image options */}
                             <div className="w-full space-y-3">
                                 {/* by  typing url */}
                                 <input
@@ -78,6 +79,7 @@ const Image = ({
                                     onChange={(e) => {
                                         setLink(e.target.value);
                                         setUrl(e.target.value);
+                                        setBlob(null);
                                     }}
                                 />
                                 {/* more options to add image*/}
@@ -91,9 +93,9 @@ const Image = ({
                                         className=""
                                         handleGetFile={async (e) => {
                                             try {
-                                                if (!e) throw new Error("file was not choose");
-                                                setBlob(e[0]);
+                                                if (!e) throw new Error("file not choose");
                                                 const url = await handleLocalFile(e);
+                                                setBlob(e[0]);
                                                 setUrl(url);
                                             } catch (error) {
                                                 console.error(error);
@@ -106,10 +108,9 @@ const Image = ({
                                             className="block text-white bg-orange-500 p-3 rounded-full shadow-sm cursor-pointer"
                                             onClick={async () => {
                                                 try {
-                                                    const imageUrlFromGalary = await handleGalaryFile();                                                    
-                                                    setUrl(imageUrlFromGalary);
-                                                    setBlob(imageUrlFromGalary);
-                                                    setLink("");
+                                                    const imageUrlFromGalary = await handleGalary();                                                    
+                                                    setUrl(imageUrlFromGalary);                       
+                                                    setBlob(null);
                                                 } catch (error) {
                                                     console.error(error);
                                                 }
@@ -194,17 +195,19 @@ const Image = ({
                             </div>
                         </main>
                         {/* add image btn */}
-                        <footer className="w-ful my-6">
+                        <footer className="w-ful my-6">                            
                             <Button
                                 fieldName={"Add image"}
                                 className="w-full bg-green-500 rounded-md text-white"
                                 onClick={async () => {
                                     try {
-                                        const getUrl = await onFileAdd(blob);                                        
-                                        const style = `inline,w-[${width + "px"}],h-[${height + "px"}],${position}`.split(",");
-                                        const imageUrl = getUrl + "=" + alt;
-                                        handleInserImage(imageUrl, style);
-                                        setBlob(getUrl);
+                                        const getNewUrl = await onAddFile(blob, url);                                        
+                                        const style = `inline,w-[${width}px],h-[${height}px],${position}`.split(",");
+                                        console.log(style);
+                                        const formatUrl = getNewUrl + "=" + alt;
+                                        setUrl(getNewUrl);
+                                        setBlob(null);
+                                        handleInserImage(formatUrl, style);                                        
                                     } catch (error) {
                                         console.error(error);
                                     }
@@ -214,7 +217,7 @@ const Image = ({
                     </div>
                 }
             />
-        </div>
+        </>
     );
 };
 
