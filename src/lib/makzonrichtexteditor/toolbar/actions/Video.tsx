@@ -7,7 +7,7 @@ import Fileinput from "../../components/Fileinput";
 import { Button } from "../../components/Button";
 import Displayvideo from "../../components/Displayvideo";
 import { IoMdImages } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../../hooks/useNavigate";
 
 const Video = ({
     getNodesWithinTextEditor,

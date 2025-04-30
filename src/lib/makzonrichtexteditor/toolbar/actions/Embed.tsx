@@ -3,7 +3,7 @@ import { actionsProps, getSelectionProps } from "../../type";
 import Dialog from "../../components/Model";
 import { Button } from "../../components/Button";
 import blockCmd from "../../commands/block.cmd";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../../hooks/useNavigate";
 
 const Embed = ({
     getNodesWithinTextEditor,

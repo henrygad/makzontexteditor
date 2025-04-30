@@ -7,7 +7,7 @@ import Fileinput from "../../components/Fileinput";
 import { Button } from "../../components/Button";
 import Displayimage from "../../components/Displayimage";
 import { IoMdImages } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../../hooks/useNavigate";
 
 const Image = ({
     getNodesWithinTextEditor,
@@ -16,7 +16,7 @@ const Image = ({
     handleGalary= async () => "",
     onAddFile = async () => "",
 }: mediaProps) => {
-    const navigate = useNavigate();
+    const navigate = useNavigate();    
     const grapSelectionRef = useRef<getSelectionProps>({
         selection: null,
         range: undefined,
@@ -38,7 +38,7 @@ const Image = ({
         handleGlobalChangesOnInputArea();
         navigate(-1);
     };
-
+    
 
     return (
         <>

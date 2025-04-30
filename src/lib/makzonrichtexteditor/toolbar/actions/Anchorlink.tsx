@@ -4,7 +4,7 @@ import { anchorLinkProps, getSelectionProps } from "../../type";
 import inlineCmd from "../../commands/inline.cmd";
 import Model from "../../components/Model";
 import { Button } from "../../components/Button";
-import { useNavigate } from "react-router-dom";
+import useNavigate from "../../hooks/useNavigate";
 
 const Anchorlink = ({
     getNodesWithinTextEditor,

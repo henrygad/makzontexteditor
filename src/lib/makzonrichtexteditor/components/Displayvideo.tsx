@@ -2,7 +2,7 @@ import { ReactElement, useState } from "react";
 
 type Props = {
     url: string,
-    setUrl?: React.Dispatch<React.SetStateAction<string>>
+    setUrl?: React.Dispatch<React.SetStateAction<string>> 
     placeHolder?: string | ReactElement
     className: string,
     selected?: boolean
@@ -65,7 +65,7 @@ const Displayvideo = ({
             }
             {/* display video */}
             <video
-                src={url}
+                src={url || " "}
                 controls
                 className={className}
                 onLoadStart={() => {
