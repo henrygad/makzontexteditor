@@ -3,6 +3,7 @@ import { useRef, useState } from "react";
 import Makzontexteditor, {deleteAll} from  "./lib/index";
 import { getValue } from "./lib/makzonrichtexteditor/type";
 import useGetLocalFiles from "./hooks/useGetLocalFiles";
+//import { Makzontexteditor, deleteAll } from "makzontexteditor";
 
 const App = () => {
   const editorRef = useRef(null);
@@ -10,13 +11,12 @@ const App = () => {
 
   const {loading, getLocalFiles} = useGetLocalFiles();
 
-  const deleteAllContent = () => {
-    if (editorRef.current) {
-      deleteAll(editorRef.current);
-    }
+  const deleteAllContent = () => {  
+      console.log("in");
+      deleteAll(editorRef);    
    };
 
-  return <div className="container flex justify-center items-center min-h-screen w-full">
+  return <div className="container flex justify-center items-center min-h-screen w-full">    
     <Makzontexteditor
       inputRef={editorRef}
       wrapperClassName="h-full w-full"
@@ -64,6 +64,8 @@ const App = () => {
         return stringValue;
       }}
     />
+
+    <button onClick={deleteAllContent}>delete all</button>
   </div>;    
 };
 

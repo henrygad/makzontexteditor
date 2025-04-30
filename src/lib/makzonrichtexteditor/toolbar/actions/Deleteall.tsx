@@ -1,13 +1,17 @@
 import { RiDeleteBin5Line } from "react-icons/ri";
+import deleteAll from "../../utils/deleteAll";
 
 type Props = {
-    deleteAll: () => void
+  inputRef: React.RefObject<HTMLDivElement | null>
 };
 
-const Deleteall = ({deleteAll}: Props) => {
-    
+const Deleteall = ({ inputRef }: Props) => {
+  
+  const handleDeleteAll = () => { 
+    deleteAll(inputRef);
+  };
   return <>
-    <button className="block cursor-pointer" onClick={deleteAll} >
+    <button className="block cursor-pointer" onClick={handleDeleteAll} >
       <RiDeleteBin5Line size={19} />
     </button>
   </>;

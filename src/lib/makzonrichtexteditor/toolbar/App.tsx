@@ -15,7 +15,6 @@ import Image from "./actions/Image";
 import Video from "./actions/Video";
 import specialKeyCmd from "./actions/specialKeyCmd";
 import pasteToClipBoard from "./actions/pasteToClipBoard";
-import deleteAll from "../utils/deleteAll";
 
 const App = ({
     toolBarClassName,
@@ -145,7 +144,7 @@ const App = ({
                 </> :
                 null
         }
-        {
+        { 
             typeof useToolBar === "object" &&
                 useToolBar.useHistor ?
                 <History inputRef={inputRef} displayHistory={displayHistory} /> :
@@ -154,7 +153,7 @@ const App = ({
         {
             typeof useToolBar === "object" &&
                 useToolBar.useDelete ?
-                <Deleteall deleteAll={() => deleteAll(inputRef)} /> :
+                <Deleteall inputRef={inputRef} /> :
                 null
         }
 
