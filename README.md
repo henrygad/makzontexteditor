@@ -90,25 +90,27 @@ yarn lint         # Run linter
 
 ---
 
-## 💡 TailwindCSS Requirement
-
-Makzontexteditor is styled using TailwindCSS. To ensure proper display and theme integration:
+### ⚠️ TailwindCSS Setup
 
 1. Your project must have Tailwind CSS installed.
 2. Make sure your Tailwind config includes the editor in the `content` path:
 
+If you are using TailwindCSS in your project, make sure to include the editor in your Tailwind config's `content` array so styles are properly applied:
+
 ```js
 // tailwind.config.js
-module.exports = {
+import path from 'path';
+
+export default {
   content: [
     './src/**/*.{js,ts,jsx,tsx}',
-    './node_modules/makzontexteditor/**/*.{js,ts,jsx,tsx}',
+    path.join(__dirname, 'node_modules', 'makzontexteditor', '**/*.{js,ts,jsx,tsx}')
   ],
-  // ...other config
+  theme: {
+    extend: {},
+  },
+  plugins: [],
 };
-```
-
----
 
 ## 🖼 Preview
 

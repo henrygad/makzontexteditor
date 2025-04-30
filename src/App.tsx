@@ -1,13 +1,11 @@
 
 import { useRef, useState } from "react";
 import Makzontexteditor, {deleteAll} from  "./lib/index";
-import { getValue } from "./lib/makzonrichtexteditor/type";
 import useGetLocalFiles from "./hooks/useGetLocalFiles";
-//import { Makzontexteditor, deleteAll } from "makzontexteditor";
 
 const App = () => {
   const editorRef = useRef(null);
-  const [getContext, setGetContext] = useState<getValue>();
+  const [getContext, setGetContext] = useState({});
 
   const {loading, getLocalFiles} = useGetLocalFiles();
 
