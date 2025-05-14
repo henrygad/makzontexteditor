@@ -38,8 +38,7 @@ const cleanAndConvertInputs = (ele: string) => {
 
     for (const childELe of childernEle) {
         clean(childELe as HTMLElement, wrapper_ele);
-    }
-    
+    }  
     return wrapper_ele.innerHTML;
 };
 

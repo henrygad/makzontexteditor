@@ -2,7 +2,7 @@ import { inputProps } from "../type";
 import inputSpecialCharacters from "./config/specialCharacters";
 import deleteUnwantedHtml from "../utils/deleteUnwantedEle";
 import { useEffect } from "react";
-import prepareInput from "../utils/prepareInput";
+import prepareInput from "./config/prepareInput";
 import stopAllOutDeleteInInput from "../utils/stopAllOutDeleteInInput";
 
 const Input = ({
@@ -27,7 +27,8 @@ const Input = ({
     };
 
     useEffect(() => {
-        // Prepare initail spans going into input on load
+        // Prepare initail spans going into contenteditable input on load
+        console.log(setContext, "outside");
         prepareInput(inputRef, setContext, autoFocus);
     }, [inputRef, setContext]);
 

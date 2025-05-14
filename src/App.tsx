@@ -1,20 +1,21 @@
 
 import { useRef, useState } from "react";
-import Makzontexteditor, {deleteAll} from  "./lib/index";
+import Makzontexteditor, { deleteAll } from "./lib/index";
 import useGetLocalFiles from "./hooks/useGetLocalFiles";
 
 const App = () => {
   const editorRef = useRef(null);
   const [getContext, setGetContext] = useState({});
+  const [setContext, setSetContext] = useState("");
 
-  const {loading, getLocalFiles} = useGetLocalFiles();
+  const { loading, getLocalFiles } = useGetLocalFiles();
 
-  const deleteAllContent = () => {  
-      console.log("in");
-      deleteAll(editorRef);    
-   };
+  const deleteAllContent = () => {
+    deleteAll(editorRef);
+  };
 
-  return <div className="container flex justify-center items-center min-h-screen w-full">    
+
+  return <div className="container flex justify-center items-center min-h-screen w-full">
     <Makzontexteditor
       inputRef={editorRef}
       wrapperClassName="h-full w-full"
@@ -41,10 +42,11 @@ const App = () => {
         useDelete: true,
         useHistor: true,
       }}
+
       autoFocus={true}
       setContext={{
         new: true,
-        context: "<div>Hi there, <h1>How are you?</h1></div> <div>It being a while. <label>Yes oh</label> <div>Help me</div> </div>",
+        context: setContext,
       }}
       setGetValue={setGetContext}
       handleLocalFile={async (FileList) => {
@@ -64,7 +66,7 @@ const App = () => {
     />
 
     <button onClick={deleteAllContent}>delete all</button>
-  </div>;    
+  </div>;
 };
 
 export default App;
