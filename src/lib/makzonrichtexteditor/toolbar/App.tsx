@@ -34,8 +34,8 @@ const App = ({
 }: toolbarProps) => {
     const [targetNode, setTargetNode] = useState<Node | ParentNode | null | undefined>(undefined);
 
-    /* prevent selecting node outside it own texteditor and contentEditbale input*/
     const getNodesWithinTextEditor = (): getSelectionProps => {
+        // Prevent selecting node outside it own texteditor and contentEditbale input
         const selections = getSelection();
         if ((textEditorAreaRef.current && textEditorAreaRef.current.contains(selections.node as Node)) &&
             inputRef.current && inputRef.current.contains(selections.node as Node)) {

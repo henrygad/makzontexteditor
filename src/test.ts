@@ -8,23 +8,21 @@ const stopAllOutDeleteInInput = (e: React.KeyboardEvent,
     if (!inputRef.current ||
         (e.key !== "Backspace" && e.key !== "Delete")) return;
 
-    // Get main child span element
+    // Get first child span element
     const mainSpanEle = inputRef.current.firstChild;
-    if (!mainSpanEle) return;
 
-    // Get child nodes of main span element
-    const childNodes = Array.from(mainSpanEle.childNodes);        
-
-    if (childNodes.length === 1 &&
-        childNodes[0].nodeName === "SPAN"
+    if (
+        mainSpanEle &&
+        mainSpanEle.childNodes.length === 1 &&
+        mainSpanEle.firstChild &&
+        mainSpanEle.firstChild.nodeName === "SPAN"
     ) {
-
         // Get first child span element
-        const firstChildSpanEle = childNodes[0];
+        const firstChildSpanEle = mainSpanEle.firstChild;
 
         const selection = document.getSelection();
-        if (!selection ||
-            !selection.rangeCount) return;
+        if (!selection) return;
+        if (!selection.rangeCount) return;
 
         const range = selection.getRangeAt(0);
         const { startContainer, startOffset } = range;
@@ -58,3 +56,29 @@ const stopAllOutDeleteInInput = (e: React.KeyboardEvent,
 
 
 export default stopAllOutDeleteInInput;
+
+
+const focusOnInput = (inputRef: React.RefObject<HTMLDivElement | null>, delay: number) => {
+    const clear = setTimeout(() => {
+        // Get window seletion api
+        const selection = window.getSelection();
+
+        if (!inputRef.current || !selection) return;
+
+        // place the caret back inside contenteditable div 
+        const mainSpanEle = inputRef.current.firstElementChild;
+        const firstChildSpanEle = mainSpanEle?.firstElementChild;
+        if (!firstChildSpanEle) return;
+
+        const range = document.createRange();
+        range.setStart(firstChildSpanEle, firstChildSpanEle.childNodes.length);
+        range.collapse(true);
+        selection.removeAllRanges();
+        selection.addRange(range);
+        selection.collapseToEnd();
+
+        clearTimeout(clear);
+    }, delay);
+};
+
+export default focusOnInput;

@@ -2,7 +2,7 @@
 
 
 
-Makzontexteditor is a modern, customizable, and lightweight rich text editor built with **React**, **TypeScript**, **Tailwind CSS**, and **Vite**. It offers intuitive formatting options, media embedding, and full control over your content creation workflow — perfect for blogs, CMS, note apps, and publishing platforms.
+Makzontexteditor is a modern, customizable, and lightweight rich text editor built with **React**, **TypeScript**, and **Tailwind CSS**. It offers intuitive formatting options, media embedding, and full control over your content creation workflow — perfect for blogs, CMS, note apps, and publishing platforms.
 
 ---
 

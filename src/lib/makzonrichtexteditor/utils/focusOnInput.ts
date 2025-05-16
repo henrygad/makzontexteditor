@@ -1,7 +1,4 @@
 
-
-// Util to focus caret into input
-
 const focusOnInput = (inputRef: React.RefObject<HTMLDivElement | null>, delay: number) => {
   const clear = setTimeout(() => {
     // Get window seletion api
@@ -9,14 +6,12 @@ const focusOnInput = (inputRef: React.RefObject<HTMLDivElement | null>, delay: n
 
     if (!inputRef.current || !selection) return;
 
-    // place the caret back inside contenteditable div            
-    const mainSpan = inputRef.current.firstElementChild;
-    if (!mainSpan) return;
-    const lastChildSpan = mainSpan.firstElementChild;
-    if (!lastChildSpan) return;
+    // place the caret back inside contenteditable div 
+    const mainSpanEle = inputRef.current.firstElementChild;
+    if (!mainSpanEle) return;            
 
     const range = document.createRange();
-    range.setStart(lastChildSpan, lastChildSpan.childNodes.length);
+    range.setStart(mainSpanEle, mainSpanEle.childNodes.length);
     range.collapse(true);
     selection.removeAllRanges();
     selection.addRange(range);

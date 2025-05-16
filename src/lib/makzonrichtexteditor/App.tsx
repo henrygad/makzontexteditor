@@ -26,8 +26,9 @@ const App = ({
     handleGalary,
     onAddFile,
 }: editorProps) => {
+    const editorIdRef = useRef(`makzon_text_editor_${Date.now() + "_" + Math.random()}`);
     const textEditorAreaRef = useRef<HTMLDivElement>(null);
-    let clearHistorTimeOut: number;
+    let clearHistorTimeOut: number;    
 
     // Add to history func
     const handleAddToHistories = () => {
@@ -39,17 +40,20 @@ const App = ({
             addHistory(element);
         }, 400);
     };
-
-    // Func that listen for changes on input and update other func
-    const handleGlobalChangesOnInputArea = () => {
+    
+    const handleGlobalChangesOnInputArea = () => {        
+        // Func that listen for global changes made on contentEditable input area
+        if (!inputRef.current) return;
+        
         displayPlaceholder(inputRef);
         handleAddToHistories();
 
-        if (!inputRef.current) return;
-
+        const mainSpanEle = inputRef.current.firstElementChild;        
+        if (!mainSpanEle) return;          
+        
         setGetValue({
-            _html: inputRef.current.innerHTML,
-            text: inputRef.current.textContent!
+            _html: mainSpanEle.innerHTML,
+            text: mainSpanEle.textContent!
         });
     };
 
@@ -58,7 +62,7 @@ const App = ({
     }, [inputRef]);
 
     return <div
-        id={`makzon_text_editor_${Date.now() + "_" + Math.random()}`}
+        id={editorIdRef.current}
         ref={textEditorAreaRef}
         className={wrapperClassName}
     >

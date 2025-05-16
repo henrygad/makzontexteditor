@@ -1,5 +1,5 @@
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Makzontexteditor, { deleteAll } from "./lib/index";
 import useGetLocalFiles from "./hooks/useGetLocalFiles";
 
@@ -14,6 +14,18 @@ const App = () => {
     deleteAll(editorRef);
   };
 
+
+  useEffect(() => {
+    setSetContext(`
+      <span class="">some to edit from <span>chicking</span> </span>
+      <span class="child-span block">and this div to span</span>
+      <span class="child-span block">how are you doing</span>
+      <span class="child-span block">ho you god</span>
+    `);
+  }, []);
+
+
+  //console.log(getContext);
 
   return <div className="container flex justify-center items-center min-h-screen w-full">
     <Makzontexteditor

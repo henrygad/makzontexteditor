@@ -1,9 +1,11 @@
 import { inputProps } from "../type";
 import inputSpecialCharacters from "./config/specialCharacters";
 import deleteUnwantedHtml from "../utils/deleteUnwantedEle";
-import { useEffect } from "react";
-import prepareInput from "./config/prepareInput";
+import { useEffect, useRef } from "react";
 import stopAllOutDeleteInInput from "../utils/stopAllOutDeleteInInput";
+import cleanAndConvertInputs from "../utils/cleanAndConvertInputs";
+import focusOnInput from "../utils/focusOnInput";
+import displayPlaceholder from "./config/displayPlaceholder";
 
 const Input = ({
     placeholder = "Start writing...",
@@ -13,6 +15,8 @@ const Input = ({
     handleGlobalChangesOnInputArea,
     autoFocus = true
 }: inputProps) => {
+
+    const stopFuncExecutRef = useRef(false);
 
     const handleOnInput = () => {
         // handle event on input into contenteditable div
@@ -27,10 +31,50 @@ const Input = ({
     };
 
     useEffect(() => {
-        // Prepare initail spans going into contenteditable input on load
-        console.log(setContext, "outside");
-        prepareInput(inputRef, setContext, autoFocus);
-    }, [inputRef, setContext]);
+        if (!inputRef.current) return;
+
+        if (setContext.new === false &&
+            setContext.context &&
+            !stopFuncExecutRef.current
+        ) {
+            // Insert available context to contenteditable input.
+            const mainSpan = document.createElement("span");
+            mainSpan.classList.add(...["main-span", "block"]);
+            const nodes = cleanAndConvertInputs(setContext.context);           
+            for (const node of nodes) {
+                mainSpan.appendChild(node);  
+            }                       
+            inputRef.current.innerHTML = "";
+            inputRef.current.prepend(mainSpan);                
+           
+            // Auto focus if set to true
+            if (autoFocus) {
+                focusOnInput(inputRef, 100);
+            }
+
+            // remove display placeholder
+            displayPlaceholder(inputRef);      
+
+            stopFuncExecutRef.current = true;
+            return;
+        } 
+
+
+        if (inputRef.current.innerHTML === "") {
+            // Insert a fresh empty span to contenteditable input.
+            inputRef.current.innerHTML = "<span class='main-span block'><span class='child-span block '><br></span></span>";
+
+            // Auto focus if set to true
+            if (autoFocus) {
+                focusOnInput(inputRef, 100);
+            }
+
+            // remove display placeholder
+            displayPlaceholder(inputRef);      
+        }
+         
+
+    }, [inputRef, setContext, autoFocus]);
 
     return (
         <div className={inputClassName}>
@@ -42,8 +86,8 @@ const Input = ({
                 ref={inputRef}
                 onInput={handleOnInput}
                 onKeyDown={handleOnkeyDown}
-                className="h-full w-full min-w-full min-h-full max-w-full max-h-full outline-0"
-            ></div>
+                className="h-full w-full min-w-full min-h-full max-w-full max-h-full outline-0">
+            </div>
         </div>
     );
 };
