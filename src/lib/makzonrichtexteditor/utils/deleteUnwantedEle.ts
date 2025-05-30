@@ -16,7 +16,7 @@ const deleteUnwantedHtml = () => {
             // Set the innerHTML of the span element to the text content of the node
             const span_ele = document.createElement("span");  
             span_ele.innerHTML = node.textContent || "<br>";   
-            span_ele.classList.add(...["child-span", "block"]);
+            //span_ele.classList.add(...["child-span", "block"]);
             node.parentElement.replaceChild(span_ele, node);
 
             // Set the selection to the new span element

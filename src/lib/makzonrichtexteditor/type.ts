@@ -98,6 +98,7 @@ export interface toolbarProps extends useToolBarProps {
   arrOfFontSizes: { name: string; style: string[] }[];
   arrOfFontFamily: { name: string; style: string[] }[];
   toolBarClassName?: string;
+  handleGetInputValues: ()=> void
   handleGlobalChangesOnInputArea: () => void;
   handleLocalFile?: (file: FileList) => Promise<string | ArrayBuffer>;
   handleGalary?: () => Promise<string>;
@@ -122,7 +123,7 @@ export interface editorProps extends addValue, useToolBarProps {
   arrOfFontFamily?: { name: string; style: string[] }[];
   handleLocalFile?: (file: FileList) => Promise<string | ArrayBuffer>;
   handleGalary?: () => Promise<string>;
-  setGetValue: (getValue: getValue) => void;
+  getValue: (getValue: getValue) => void;
   onAddFile?: (
     blobValue: Blob | null,
     stringValue: string | ArrayBuffer

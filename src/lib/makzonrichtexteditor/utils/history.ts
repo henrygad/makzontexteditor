@@ -3,7 +3,6 @@ import displayPlaceholder from "../input/config/displayPlaceholder";
 import { historyProps } from "../type";
 import focusOnInput from "./focusOnInput";
 
-
 class History implements historyProps {
     constructor() {
         this.history = [];

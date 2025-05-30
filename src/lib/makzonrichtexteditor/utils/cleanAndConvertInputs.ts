@@ -2,44 +2,60 @@
 const wantedHtmlTag: string[] = ["span", "ul", "ol", "li", "a", "code", "video", "img", "br"];
 
 
-const clean = (childELe: HTMLElement, parentEle: HTMLElement, isTopLevel: boolean) => {
-    
+const clean = (childELe: HTMLElement, parentEle: HTMLElement, checkTopLevel: boolean) => {   
     let span_ele: HTMLSpanElement | null = null;
 
     // Check if the child element is a wanted HTML tag
     if (!wantedHtmlTag.includes(childELe.tagName.toLowerCase())) {
 
-        // Then create a new span element and set its innerHTML to the child element's innerHTML
+        // Then create a  new span element and set its innerHTML to the child element's innerHTML
         // and replace the child element with the new span element
-        span_ele = document.createElement("span");
-        span_ele.innerHTML = childELe.innerHTML || "<br>";        
+        span_ele = document.createElement("span");             
+        span_ele.innerHTML = childELe.innerHTML || "<br>";
 
-        if (childELe.tagName.toLowerCase() === "div") {
-            span_ele.className = "child-span block";
-        } else if (childELe.className) {            
-            span_ele.className = childELe.className;
-        }
-
+        if (checkTopLevel) {
+            if (childELe.tagName.toLowerCase() === "div") {
+                span_ele.className = "child-span block";  
+            }
+        }     
         parentEle.replaceChild(span_ele, childELe);
     }
 
-    
-    if (isTopLevel) { // If this is the top level, we need to add the class "child-span" and "block" to the child element
-
-        // Check if the child element already has the class "child-span" and "block"
-        if (!childELe.className.includes("child-span")) {
-            // Then add the class "child-span" to the child element
+    // If child span is in top most level,
+    if (checkTopLevel) {
+        // Then, add "child-span" to child element class if no one found
+        if (!childELe.className.includes("child-span")) {        
             childELe.classList.add("child-span");
-        }        
-
+        }
+    
+        // And add "child-span" to child element class if no one found
         if (!childELe.className.includes("block")) {
             // Then add the class "block" to the child element
             childELe.classList.add("block");
-        }
+        }             
     }
 
-    // Remove the class "child-span" and "block" from the child element
-    childELe.removeAttribute("style");
+
+    if (childELe.tagName.toLowerCase() === "ul" ||
+        childELe.tagName.toLowerCase() === "ol"
+    ) { 
+        if (!childELe.className.includes("list-disc ml-5")) {
+            childELe.removeAttribute("style");
+
+            if (childELe.tagName.toLowerCase() === "ul") {
+                childELe.classList.add(...["list-disc", "ml-5"]);
+            } else {
+                childELe.classList.add(...["list-decimal", "ml-5"]);
+            }
+        }
+        
+        if (checkTopLevel) {
+            span_ele = document.createElement("span");           
+            parentEle.replaceChild(span_ele, childELe);
+            span_ele.append(childELe);
+        }   
+    }
+    
 
     if (span_ele) {// If the span element is not null, then we need to clean its children
 
@@ -61,7 +77,7 @@ const clean = (childELe: HTMLElement, parentEle: HTMLElement, isTopLevel: boolea
 };
 
 
-const cleanAndConvertInputs = (ele: string, isTopLevel: boolean = true): ChildNode[] => {
+const cleanAndConvertInputs = (ele: string, checkTopLevel: boolean): ChildNode[] => {   
     const wrapper_ele = document.createElement("span");
     wrapper_ele.innerHTML = ele;
     const childernEle = Array.from(wrapper_ele.children);
@@ -69,7 +85,7 @@ const cleanAndConvertInputs = (ele: string, isTopLevel: boolean = true): ChildNo
     for (const childELe of childernEle) {
         // Top level cleaning
         // Check if the child element is a wanted HTML tag
-        clean(childELe as HTMLElement, wrapper_ele, isTopLevel);
+        clean(childELe as HTMLElement, wrapper_ele, checkTopLevel);
     }
 
     // Return the child nodes of the wrapper element that are of type ELEMENT_NODE

@@ -17,13 +17,16 @@ const App = () => {
 
   useEffect(() => {
     setSetContext(`
+      <div class="chch">this is a div</div>
       <span class="">some to edit from <span>chicking</span> </span>
       <span class="child-span block">and this div to span</span>
       <span class="child-span block">how are you doing</span>
+      <ul>
+       <li>List one</li>
+      </ul>
       <span class="child-span block">ho you god</span>
     `);
   }, []);
-
 
   //console.log(getContext);
 
@@ -32,7 +35,7 @@ const App = () => {
       inputRef={editorRef}
       wrapperClassName="h-full w-full"
       toolBarClassName="w-full border p-4"
-      inputClassName="w-full min-h-[480px] max-h-[480px] p-4 border"
+      inputClassName="w-full min-h-[480px]  p-4 border"
       placeholder="Start writing..."
       useToolBar={{
         useInline: {
@@ -54,13 +57,12 @@ const App = () => {
         useDelete: true,
         useHistor: true,
       }}
-
       autoFocus={true}
       setContext={{
         new: true,
         context: setContext,
       }}
-      setGetValue={setGetContext}
+      getValue={setGetContext}
       handleLocalFile={async (FileList) => {
         const files = await getLocalFiles(FileList);
         if (files) {

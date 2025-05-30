@@ -4,15 +4,16 @@ const displayPlaceholder = (
     inputRef: React.RefObject<HTMLDivElement | null>) => {
     if (!inputRef.current) return;
 
-    const mainSpan = inputRef.current.firstElementChild;
-    if (!mainSpan) return;
+    const mainSpanEle = inputRef.current.firstElementChild;
+    if (!mainSpanEle) return;
     
-    const children = Array.from(mainSpan.children);        
+    const children = Array.from(mainSpanEle.children);        
 
-    for (const child of children) {
-        const isNotEmpty = child.innerHTML.replace("<br>", "").trim() !== "";
+    for (const childSpanEle of children) {
+        const isNotEmpty = childSpanEle.innerHTML.replace("<br>", "").trim() !== "";
         const placeHolder_ele = inputRef.current.previousElementSibling;
-        if (isNotEmpty) {
+
+        if (isNotEmpty && (mainSpanEle.textContent?.length || 0) > 0) {
             if (placeHolder_ele && placeHolder_ele.className.includes("place-holder")) {
                 placeHolder_ele.classList.remove("block");
                 placeHolder_ele.classList.add("hidden");

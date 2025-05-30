@@ -27,6 +27,7 @@ const App = ({
     arrOfFontSizes,
     arrOfFontFamily,
     textEditorAreaRef,
+    handleGetInputValues,
     handleGalary,
     onAddFile,
     handleLocalFile,
@@ -51,20 +52,27 @@ const App = ({
     };
 
     const handleOnSelectionChange = () => {
-        //get selected node on selection changes on document
+        // get selected node on selection changes on document
         const { textNode } = getNodesWithinTextEditor();
         setTargetNode(textNode);
     };
 
     useEffect(() => {
-        if (inputRef &&
-            inputRef.current) {
-            inputRef.current.addEventListener("keydown", (e) => specialKeyCmd(e, inputRef, getNodesWithinTextEditor));
-            inputRef.current.addEventListener("paste", (e) => pasteToClipBoard(e, getNodesWithinTextEditor, handleGlobalChangesOnInputArea));
+        if (inputRef.current) {
+            inputRef.current.addEventListener("keydown",
+                (e) => specialKeyCmd(e, inputRef, getNodesWithinTextEditor, handleGetInputValues, handleGlobalChangesOnInputArea));
+            inputRef.current.addEventListener("paste",
+                (e) => pasteToClipBoard(e, getNodesWithinTextEditor, handleGlobalChangesOnInputArea));
         }
-
         document.addEventListener("selectionchange", handleOnSelectionChange);
+
         return () => {
+            if (inputRef.current) {
+                inputRef.current.removeEventListener("keydown",
+                    (e) => specialKeyCmd(e, inputRef, getNodesWithinTextEditor, handleGetInputValues, handleGlobalChangesOnInputArea));
+                inputRef.current.removeEventListener("paste",
+                    (e) => pasteToClipBoard(e, getNodesWithinTextEditor, handleGlobalChangesOnInputArea));
+            }
             document.removeEventListener("selectionchange", handleOnSelectionChange,);
         };
     }, []);
@@ -144,10 +152,13 @@ const App = ({
                 </> :
                 null
         }
-        { 
+        {
             typeof useToolBar === "object" &&
                 useToolBar.useHistor ?
-                <History inputRef={inputRef} displayHistory={displayHistory} /> :
+                <History displayHistory={(dir) => {
+                    displayHistory(dir, inputRef);
+                    handleGetInputValues();
+                }} /> :
                 null
         }
         {

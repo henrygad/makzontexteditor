@@ -13,7 +13,7 @@ const App = ({
     inputClassName,
     placeholder,
     setContext,
-    setGetValue,
+    getValue,
     autoFocus,
     useToolBar,
     arrOfEmojis = emojis,
@@ -30,8 +30,8 @@ const App = ({
     const textEditorAreaRef = useRef<HTMLDivElement>(null);
     let clearHistorTimeOut: number;    
 
-    // Add to history func
     const handleAddToHistories = () => {
+        // A function that create history on input change
         clearTimeout(clearHistorTimeOut);
 
         clearHistorTimeOut = setTimeout(() => {
@@ -41,24 +41,28 @@ const App = ({
         }, 400);
     };
     
+    const handleGetInputValues = () => { 
+        if (inputRef.current) {
+            const mainSpanEle = inputRef.current.firstElementChild;
+            if (mainSpanEle) {
+                getValue({
+                    _html: mainSpanEle.innerHTML,
+                    text: mainSpanEle.textContent!
+                });
+            }
+        }
+    };
+    
     const handleGlobalChangesOnInputArea = () => {        
         // Func that listen for global changes made on contentEditable input area
-        if (!inputRef.current) return;
         
         displayPlaceholder(inputRef);
         handleAddToHistories();
-
-        const mainSpanEle = inputRef.current.firstElementChild;        
-        if (!mainSpanEle) return;          
-        
-        setGetValue({
-            _html: mainSpanEle.innerHTML,
-            text: mainSpanEle.textContent!
-        });
+        handleGetInputValues();
     };
 
-    useEffect(() => { 
-        handleGlobalChangesOnInputArea();
+    useEffect(() => {              
+        handleAddToHistories();        
     }, [inputRef]);
 
     return <div
@@ -78,6 +82,7 @@ const App = ({
                 arrOfFontSizes={arrOfFontSizes}
                 arrOfFontFamily={arrOfFontFamily}
                 textEditorAreaRef={textEditorAreaRef}
+                handleGetInputValues={handleGetInputValues}
                 handleGalary={handleGalary}
                 onAddFile={onAddFile}
                 handleLocalFile={handleLocalFile}
