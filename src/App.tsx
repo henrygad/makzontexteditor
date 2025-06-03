@@ -78,7 +78,6 @@ const App = () => {
         return stringValue;
       }}
     />
-
     <button onClick={deleteAllContent}>delete all</button>
   </div>;
 };
@@ -87,7 +86,6 @@ export default App;
 
 
 /* 
-
 Bump the version:
 npm version patch (or minor / major)
 

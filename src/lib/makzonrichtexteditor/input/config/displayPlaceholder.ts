@@ -13,7 +13,7 @@ const displayPlaceholder = (
         const isNotEmpty = childSpanEle.innerHTML.replace("<br>", "").trim() !== "";
         const placeHolder_ele = inputRef.current.previousElementSibling;
 
-        if (isNotEmpty && (mainSpanEle.textContent?.length || 0) > 0) {
+        if (isNotEmpty) {
             if (placeHolder_ele && placeHolder_ele.className.includes("place-holder")) {
                 placeHolder_ele.classList.remove("block");
                 placeHolder_ele.classList.add("hidden");

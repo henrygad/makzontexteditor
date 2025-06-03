@@ -31,10 +31,7 @@ const stopAllOutDeleteInInput = (e: React.KeyboardEvent,
     // 2) …and caret is at very start or end.       
     const atStart = startOffset === 0;  
     
-    if (isInchildSpanEle &&
-        atStart &&
-        (mainSpanEle.textContent?.length || 0) < 2
-    ) {
+    if (isInchildSpanEle && atStart) {
 
         // However, If caret is at start of first child span element
         // and first child span element has only one child node            
