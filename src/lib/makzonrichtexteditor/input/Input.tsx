@@ -5,7 +5,7 @@ import { useEffect} from "react";
 import stopAllOutDeleteInInput from "../utils/stopAllOutDeleteInInput";
 import cleanAndConvertInputs from "../utils/cleanAndConvertInputs";
 import focusOnInput from "../utils/focusOnInput";
-import displayPlaceholder from "./config/displayPlaceholder";
+//import displayPlaceholder from "./config/displayPlaceholder";
 import addInitialSpan from "./config/addInitialSpan";
 
 const Input = ({
@@ -65,11 +65,12 @@ const Input = ({
                 focusOnInput(inputRef, 100);
             }
 
-            // remove display placeholder
-            displayPlaceholder(inputRef);
+            // Upadte global changes on input area
+            handleGlobalChangesOnInputArea();            
         }
 
     }, [inputRef.current, setContext, autoFocus]);
+
 
     return (
         <div className={inputClassName}>

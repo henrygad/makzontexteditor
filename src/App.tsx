@@ -27,7 +27,8 @@ const App = () => {
   const handleGenerate = async (topic: string) => {
     setLoading(true);
     try {
-      const { context } = await aiGenerateContent(topic);
+      // const { context } = await aiGenerateContent(topic);
+      const context = topic;
       setSetContext({ new: false, context });
       setTopicToGenerate("");
       setOpenGenAIModal(false);
@@ -39,17 +40,17 @@ const App = () => {
   };
 
   useEffect(() => {
-    // setSetContext({
-    //   new: false,
-    //   context: `<div class="chch">this is a div</div>
-    //     <span class="">some to edit from <span>chicking</span> </span>
-    //     <span class="child-span block">and this div to span</span>
-    //     <span class="child-span block">how are you doing</span>
-    //     <ul>
-    //     <li>List one</li>
-    //     </ul>
-    //   <span class="child-span block">ho you god</span>`
-    // });
+    setSetContext({
+      new: false,
+      context: `<div class="chch">this is a div</div>
+        <span class="">some to edit from <span>chicking</span> </span>
+        <span class="child-span block">and this div to span</span>
+        <span class="child-span block">how are you doing</span>
+        <ul>
+        <li>List one</li>
+        </ul>
+      <span class="child-span block">ho you god</span>`
+    });
   }, []);
 
   return <>

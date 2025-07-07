@@ -43,20 +43,19 @@ const App = ({
     };
     
     const handleGetInputValues = () => { 
-        if (inputRef.current) {
+        if (inputRef.current) {            
             const mainSpanEle = inputRef.current.firstElementChild;
             if (mainSpanEle) {
                 getValue({
-                    _html: mainSpanEle.innerHTML,
-                    text: mainSpanEle.textContent!
+                    _html: mainSpanEle.innerHTML || "",
+                    text: mainSpanEle.textContent ||""
                 });
             }
         }
     };
     
-    const handleGlobalChangesOnInputArea = () => {        
-        // Func that listen for global changes made on contentEditable input area
-        
+    const handleGlobalChangesOnInputArea = () => {
+        // Func that listen for global changes made on contentEditable input area                
         displayPlaceholder(inputRef);
         handleAddToHistories();
         handleGetInputValues();
@@ -97,7 +96,7 @@ const App = ({
             inputClassName={inputClassName}
             placeholder={placeholder}
             inputRef={inputRef}
-            handleGlobalChangesOnInputArea={handleGlobalChangesOnInputArea}
+            handleGlobalChangesOnInputArea={handleGlobalChangesOnInputArea}            
             autoFocus={autoFocus}
         />
     </div>;
