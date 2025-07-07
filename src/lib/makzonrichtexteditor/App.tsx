@@ -29,6 +29,7 @@ const App = ({
     const editorIdRef = useRef(`makzon_text_editor_${Date.now() + "_" + Math.random()}`);
     const textEditorAreaRef = useRef<HTMLDivElement>(null);
     let clearHistorTimeOut: number;    
+    
 
     const handleAddToHistories = () => {
         // A function that create history on input change

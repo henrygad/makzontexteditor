@@ -1,5 +1,6 @@
 import { default as Makzontexteditor } from "./makzonrichtexteditor/App";
-import  deleteAll from "./makzonrichtexteditor/utils/deleteAll";
+import { default as deleteAll } from "./makzonrichtexteditor/utils/deleteAll";
 
-export {deleteAll};
+
+export { deleteAll ,};
 export default Makzontexteditor;

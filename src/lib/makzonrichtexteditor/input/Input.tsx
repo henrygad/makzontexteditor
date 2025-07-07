@@ -1,7 +1,7 @@
 import { inputProps } from "../type";
 //import inputSpecialCharacters from "./config/specialCharacters";
 import deleteUnwantedHtml from "../utils/deleteUnwantedEle";
-import { useEffect, useRef } from "react";
+import { useEffect} from "react";
 import stopAllOutDeleteInInput from "../utils/stopAllOutDeleteInInput";
 import cleanAndConvertInputs from "../utils/cleanAndConvertInputs";
 import focusOnInput from "../utils/focusOnInput";
@@ -17,8 +17,6 @@ const Input = ({
     autoFocus = true
 }: inputProps) => {
 
-    const stopFuncExecutRef = useRef(false);
-
     const handleOnInput = () => {
         // handle event on input into contenteditable div
         deleteUnwantedHtml();
@@ -27,58 +25,57 @@ const Input = ({
 
     const handleOnkeyDown = (e: React.KeyboardEvent) => {
         // handle on key down events function calls
-        
+
         // inputSpecialCharacters(e, handleGlobalChangesOnInputArea);
         stopAllOutDeleteInInput(e, inputRef, handleGlobalChangesOnInputArea);
     };
 
     useEffect(() => {
-        if (inputRef.current) {
-            if (setContext.new === false &&
-                setContext.context &&
-                !stopFuncExecutRef.current
-            ) {
-                // Insert available context to contenteditable input.
-                const mainSpan = document.createElement("span");
-                mainSpan.classList.add(...["main-span", "block"]);
-                const checkTopLevel = true;
-                const nodes = cleanAndConvertInputs(setContext.context, checkTopLevel);           
-                for (const node of nodes) {
-                    mainSpan.appendChild(node);  
-                }                       
-                inputRef.current.innerHTML = "";
-                inputRef.current.prepend(mainSpan);                
-               
-                // Auto focus if set to true
-                if (autoFocus) {
-                    focusOnInput(inputRef, 100);
-                }
-    
-                // remove display placeholder
-                displayPlaceholder(inputRef);    
-    
-                stopFuncExecutRef.current = true;
-                return;
-            } 
-    
-            if (inputRef.current.innerHTML === "") {
-                // Insert a fresh empty span to contenteditable input.
-                inputRef.current.innerHTML = addInitialSpan();
-    
-                // Auto focus if set to true
-                if (autoFocus) {
-                    focusOnInput(inputRef, 100);
-                }
-    
-                // remove display placeholder
-                displayPlaceholder(inputRef);      
+        if (inputRef.current &&
+            inputRef.current.innerHTML === "") {
+            // Insert a fresh empty span to contenteditable input.
+            inputRef.current.innerHTML = addInitialSpan();
+
+            // Auto focus if set to true
+            if (autoFocus) {
+                focusOnInput(inputRef, 100);
             }
-        };        
-    }, [inputRef, setContext.new, setContext.context, autoFocus]);
+        }
+    }, [inputRef.current, autoFocus]);
+
+    useEffect(() => {       
+        if (inputRef.current &&
+            setContext &&
+            setContext.new === false &&
+            setContext.context
+        ) {         
+            
+            const mainSpan = document.createElement("span");
+            mainSpan.classList.add(...["main-span", "block"]);
+            const checkTopLevel = true;       
+            const nodes = cleanAndConvertInputs(setContext.context, checkTopLevel);
+            for (const node of nodes) {
+                mainSpan.appendChild(node);
+            }
+            inputRef.current.innerHTML = "";
+            inputRef.current.prepend(mainSpan);
+
+            // Auto focus if set to true
+            if (autoFocus) {
+                focusOnInput(inputRef, 100);
+            }
+
+            // remove display placeholder
+            displayPlaceholder(inputRef);
+        }
+
+    }, [inputRef.current, setContext, autoFocus]);
 
     return (
         <div className={inputClassName}>
-            <span className="place-holder text-base first-letter:capitalize opacity-45 absolute">
+            <span
+                className="place-holder text-base text-gray-800 first-letter:capitalize opacity-45 absolute"
+            >
                 {placeholder}
             </span>
             <div

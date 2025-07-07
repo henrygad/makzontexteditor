@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { GoLink, GoUnlink } from "react-icons/go";
 import { anchorLinkProps, getSelectionProps } from "../../type";
 import inlineCmd from "../../commands/inline.cmd";
-import Model from "../../components/Model";
+import Modal from "../../components/Modal";
 import { Button } from "../../components/Button";
 import useNavigate from "../../hooks/useNavigate";
 
@@ -82,7 +82,7 @@ const Anchorlink = ({
                     }}>
                     <GoLink size={16} />
                 </button>
-                <Model
+                <Modal
                     id="create-link"
                     children={
                         <form

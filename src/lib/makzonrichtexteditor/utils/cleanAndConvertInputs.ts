@@ -50,7 +50,8 @@ const clean = (childELe: HTMLElement, parentEle: HTMLElement, checkTopLevel: boo
         }
         
         if (checkTopLevel) {
-            span_ele = document.createElement("span");           
+            span_ele = document.createElement("span");  
+            span_ele.classList.add(...["block", "child-span"]);
             parentEle.replaceChild(span_ele, childELe);
             span_ele.append(childELe);
         }   
@@ -80,6 +81,15 @@ const clean = (childELe: HTMLElement, parentEle: HTMLElement, checkTopLevel: boo
 const cleanAndConvertInputs = (ele: string, checkTopLevel: boolean): ChildNode[] => {   
     const wrapper_ele = document.createElement("span");
     wrapper_ele.innerHTML = ele;
+
+    if (ele.trim() &&
+        wrapper_ele.children.length === 0
+    ) {
+        const newChild = document.createElement("span");
+        newChild.innerHTML = ele;
+        wrapper_ele.appendChild(newChild);
+    }
+     
     const childernEle = Array.from(wrapper_ele.children);
 
     for (const childELe of childernEle) {

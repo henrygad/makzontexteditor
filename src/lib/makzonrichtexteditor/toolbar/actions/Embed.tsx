@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { actionsProps, getSelectionProps } from "../../type";
-import Dialog from "../../components/Model";
+import Modal from "../../components/Modal";
 import { Button } from "../../components/Button";
 import blockCmd from "../../commands/block.cmd";
 import useNavigate from "../../hooks/useNavigate";
@@ -34,7 +34,7 @@ const Embed = ({
         }}>
             {"</>"}
         </button>
-        <Dialog
+        <Modal
             id="embed-content"
             children={
                 <form

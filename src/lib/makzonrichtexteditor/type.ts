@@ -26,7 +26,7 @@ type useToolBarProps = {
 };
 
 export type addValue = {
-  setContext: { new: boolean, context?: string }
+  setContext: { new: boolean, context: string }
 };
 
 export type getValue = {

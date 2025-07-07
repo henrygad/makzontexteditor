@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { getSelectionProps, mediaProps } from "../../type";
 import blockCmd from "../../commands/block.cmd";
 import { RiFolderVideoLine } from "react-icons/ri";
-import Model from "../../components/Model";
+import Modal from "../../components/Modal";
 import Fileinput from "../../components/Fileinput";
 import { Button } from "../../components/Button";
 import Displayvideo from "../../components/Displayvideo";
@@ -46,7 +46,7 @@ const Video = ({
             }}>
             <RiFolderVideoLine size={22} />
         </button>
-        <Model
+        <Modal
             id="insert-video"
             children={
                 <div className="font-text px-8 rounded shadow-sm bg-white">

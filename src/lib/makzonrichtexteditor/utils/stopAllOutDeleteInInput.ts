@@ -12,11 +12,11 @@ const stopAllOutDeleteInInput = (e: React.KeyboardEvent,
     if (!mainSpanEle) return;
 
     // Get child nodes of main span element
-    const childNodes = Array.from(mainSpanEle.childNodes);
+    const manSpanElechildNodes = Array.from(mainSpanEle.childNodes);
        // .filter(node => node.TEXT_NODE);
 
     // Get first child span element
-    const childSpanEle = childNodes[0];
+    const firstChildSpanEle = manSpanElechildNodes[0];
 
     // Get selected nde or nodeText
     const selection = document.getSelection();
@@ -26,7 +26,7 @@ const stopAllOutDeleteInInput = (e: React.KeyboardEvent,
     const { startContainer, startOffset } = range;
 
     // 1) Caret is inside the first child span element...
-    const isInchildSpanEle = startContainer === childSpanEle || childSpanEle.contains(startContainer);
+    const isInchildSpanEle = startContainer === firstChildSpanEle || firstChildSpanEle.contains(startContainer);
 
     // 2) …and caret is at very start or end.       
     const atStart = startOffset === 0;  
@@ -35,15 +35,24 @@ const stopAllOutDeleteInInput = (e: React.KeyboardEvent,
 
         // However, If caret is at start of first child span element
         // and first child span element has only one child node            
-        if (childSpanEle.firstChild &&
-            childSpanEle.firstChild.nodeName !== "BR") {
-
+        if (firstChildSpanEle.firstChild &&
+            firstChildSpanEle.firstChild.nodeName !== "BR") {
+            
             // Replace firstchild of first child span element to <br>
-            childSpanEle.firstChild.replaceWith(document.createElement("br"));
+            //childSpanEle.firstChild.replaceWith(document.createElement("br"));
+            
+            const mainSpan = document.createElement("span");
+            mainSpan.classList.add(...["main-span", "block",]);
+            mainSpan.append(document.createElement("br"));
+            
+            //mainSpan.removeChild(firstChildSpanEle);
+            mainSpanEle.appendChild(mainSpan);
 
             // Update global change func
             handleGlobalChangesOnInputArea();
-        }
+
+            return;
+        }        
 
         // 3) then, Prevent removing last span
         e.preventDefault();

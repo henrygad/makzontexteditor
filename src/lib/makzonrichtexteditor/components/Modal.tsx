@@ -5,26 +5,26 @@ type Props = {
   children: ReactElement;
 };
 
-const Model = ({ id, children }: Props) => {  
+const Modal = ({ id, children }: Props) => {  
   const location = useLocation();
-  const currentModelIdRef = useRef("");
+  const currentModalIdRef = useRef("");
   const lastHashIdRef = useRef("");
-  const [displayModel, setDisplayModel] = useState(false);
+  const [displayModal, setDisplayModal] = useState(false);
 
-  const handleDisplayModel = (hash: string, id: string) => {
+  const handleDisplayModal = (hash: string, id: string) => {
     const hashId = hash.trim().slice(1);      
 
     if (hashId &&
       hashId.trim() === id.trim()
     ) {      
-      currentModelIdRef.current = id;      
+      currentModalIdRef.current = id;      
       lastHashIdRef.current = hashId;
-      setDisplayModel(true); 
+      setDisplayModal(true); 
       document.body.classList.add("overflow-hidden");     
     } else {      
-      if (lastHashIdRef.current === currentModelIdRef.current) {        
-        setDisplayModel(false);
-        if(displayModel)document.body.classList.remove("overflow-hidden");
+      if (lastHashIdRef.current === currentModalIdRef.current) {        
+        setDisplayModal(false);
+        if(displayModal)document.body.classList.remove("overflow-hidden");
       }
     }
 
@@ -32,7 +32,7 @@ const Model = ({ id, children }: Props) => {
   };
  
   const handlePopState = () => {
-    handleDisplayModel(location.hash, id);
+    handleDisplayModal(location.hash, id);
   };
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Model = ({ id, children }: Props) => {
   }, []);
 
   return (
-    displayModel ?
+    displayModal ?
       <div
         id={id}
         className="block fixed top-0 bottom-0 right-0 left-0 w-full h-full bg-gray-600/55 z-50"
@@ -54,4 +54,4 @@ const Model = ({ id, children }: Props) => {
   );
 };
 
-export default Model;
+export default Modal;

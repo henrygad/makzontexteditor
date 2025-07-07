@@ -23,11 +23,10 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsup src/lib/index.tsx --dts --format esm,cjs --external react,react-dom --tsconfig tsconfig.build.json",
+    "build": "tsup src/lib/index.ts --dts --format esm,cjs --external react,react-dom --tsconfig tsconfig.build.json",
     "build-app": "tsc -b && vite build",
     "preview": "vite preview",
-    "lint": "eslint .",
-    "tailwindcss": "tailwindcss"
+    "lint": "eslint"
   },
   "peerDependencies": {
     "react": "^19.1.0",

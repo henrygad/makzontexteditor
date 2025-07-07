@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { getSelectionProps, mediaProps } from "../../type";
 import { RiFolderImageLine } from "react-icons/ri";
-import Model from "../../components/Model";
+import Modal from "../../components/Modal";
 import blockCmd from "../../commands/block.cmd";
 import Fileinput from "../../components/Fileinput";
 import { Button } from "../../components/Button";
@@ -51,7 +51,7 @@ const Image = ({
             >
                 <RiFolderImageLine size={22} />
             </button>
-            <Model
+            <Modal
                 id="insert-image"
                 children={
                     <div className="font-text px-8 rounded shadow-sm bg-white">
@@ -202,8 +202,7 @@ const Image = ({
                                 onClick={async () => {
                                     try {
                                         const getNewUrl = await onAddFile(blob, url);                                        
-                                        const style = `inline,w-[${width}px],h-[${height}px],${position}`.split(",");
-                                        console.log(style);
+                                        const style = `inline,w-[${width}px],h-[${height}px],${position}`.split(",");                                        
                                         const formatUrl = getNewUrl + "=" + alt;
                                         setUrl(getNewUrl);
                                         setBlob(null);
