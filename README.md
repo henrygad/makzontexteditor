@@ -114,7 +114,7 @@ export default {
 
 ## 🖼 Preview
 
-![Editor Preview](./mytexteeditor.png)
+![Editor Preview](./makzontexteditor.png)
 
 ---
 
