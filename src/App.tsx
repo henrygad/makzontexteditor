@@ -41,7 +41,7 @@ const App = () => {
 
   useEffect(() => {
     setSetContext({
-      new: false,
+      new: true,
       context: `<div class="chch">this is a div</div>
         <span class="">some to edit from <span>chicking</span> </span>
         <span class="child-span block">and this div to span</span>
@@ -52,6 +52,8 @@ const App = () => {
       <span class="child-span block">ho you god</span>`
     });
   }, []);
+
+  console.log(getContext);
 
   return <>
     <header className="container">
@@ -136,13 +138,13 @@ const App = () => {
       {/* submit button section */}
       <section className="relative">
         <div className="fixed  right-0 left-0 bottom-8 flex justify-center items-center p-3">
-          <button
+          {/* <button
             className="flex justify-center items-center py-3 px-6 sm:px-10 bg-green-800 border border-green-200 rounded-full transition-colors duration-100  active:bg-green-700 cursor-pointer"
             disabled={!getContext.text.trim()}
             onClick={() => handleSumbitContent(getContext)}
           >
             <span className="text-white font-bold">Submit</span>
-          </button>
+          </button> */}
         </div>
       </section>
     </footer>

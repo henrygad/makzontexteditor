@@ -15,7 +15,7 @@ const pasteToClipBoard = (
         const paste = clipBoard.getData("text/html") || clipBoard.getData("text/plain");
 
         // Clean and convert input into DOM nodes
-        const nodes = cleanAndConvertInputs(paste, false); // returns an array of Nodes
+        const nodes = cleanAndConvertInputs(paste, false).reverse(); // returns an array of Nodes
 
         // Remove existing content in selection
         range.deleteContents();

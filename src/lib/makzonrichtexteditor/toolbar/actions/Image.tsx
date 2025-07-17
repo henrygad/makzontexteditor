@@ -87,7 +87,7 @@ const Image = ({
                                     {/* from device */}
                                     <Fileinput
                                         id="choose-image-from-device"
-                                        accept="image/png, image/gif, image/jpeg"
+                                        accept="*"
                                         type="image"
                                         fieldName="Device"
                                         className=""
