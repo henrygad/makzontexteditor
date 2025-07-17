@@ -1576,6 +1576,15 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+makzontexteditor@^1.2.5:
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/makzontexteditor/-/makzontexteditor-1.2.5.tgz#40c1ff557e3a44f15cf3613bce51b07d2788d1a9"
+  integrity sha512-drAY4wq4pWtBW0j4fWoeSCcdGSyS4ZBLbRNVLrMLJCuAcPf4uitbEmoKqsBcf1uqAU5MPsZwYxCw4Q3ESXePGA==
+  dependencies:
+    react "^19.1.0"
+    react-dom "^19.1.0"
+    react-icons "^5.5.0"
+
 math-intrinsics@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/math-intrinsics/-/math-intrinsics-1.1.0.tgz#a0dd74be81e2aa5c2f27e65ce283605ee4e2b7f9"
