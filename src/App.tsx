@@ -27,8 +27,7 @@ const App = () => {
   const handleGenerate = async (topic: string) => {
     setLoading(true);
     try {
-      // const { context } = await aiGenerateContent(topic);
-      const context = topic;
+      const { context } = await aiGenerateContent(topic);      
       setSetContext({ new: false, context });
       setTopicToGenerate("");
       setOpenGenAIModal(false);
@@ -53,20 +52,18 @@ const App = () => {
     });
   }, []);
 
-  console.log(getContext);
-
   return <>
     <header className="container">
       <div className="p-2 border-b">
         <nav>
           <ul>
             <li>
-              {/* <button
+              <button
               onClick={deleteAllContent}
               className="font-text font-medium text-base bg-red-800 text-white px-3 py-1.5 rounded-md shadow"
             >
               Delete all
-            </button> */}
+            </button>
             </li>
           </ul>
         </nav>
@@ -129,6 +126,7 @@ const App = () => {
             return "";
           }}
           onAddFile={async (blobValue, stringValue) => {
+            console.log(blobValue);
             return stringValue;
           }}
         />
@@ -138,13 +136,13 @@ const App = () => {
       {/* submit button section */}
       <section className="relative">
         <div className="fixed  right-0 left-0 bottom-8 flex justify-center items-center p-3">
-          {/* <button
+          <button
             className="flex justify-center items-center py-3 px-6 sm:px-10 bg-green-800 border border-green-200 rounded-full transition-colors duration-100  active:bg-green-700 cursor-pointer"
             disabled={!getContext.text.trim()}
             onClick={() => handleSumbitContent(getContext)}
           >
             <span className="text-white font-bold">Submit</span>
-          </button> */}
+          </button>
         </div>
       </section>
     </footer>
