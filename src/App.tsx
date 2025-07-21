@@ -1,10 +1,10 @@
 
 import { useEffect, useRef, useState } from "react";
-import Makzontexteditor, { deleteAll } from "makzontexteditor";
 import useGetLocalFiles from "./hooks/useGetLocalFiles";
 import { getValue } from "./lib/makzonrichtexteditor/type";
 import useAIGenerateContent from "./hooks/useAIGenerateContent";
 import AIcontentgenerator from "./ui/AIcontentgenerator";
+import Makzontexteditor, {deleteAll} from "./lib";
 
 const App = () => {
   const editorRef = useRef(null);
