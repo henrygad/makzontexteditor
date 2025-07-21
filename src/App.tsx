@@ -27,7 +27,9 @@ const App = () => {
   const handleGenerate = async (topic: string) => {
     setLoading(true);
     try {
-      const { context } = await aiGenerateContent(topic);      
+      const { context } = await aiGenerateContent(topic);  
+      console.log(context);
+      
       setSetContext({ new: false, context });
       setTopicToGenerate("");
       setOpenGenAIModal(false);
